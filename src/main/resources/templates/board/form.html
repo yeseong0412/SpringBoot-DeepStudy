@@ -98,15 +98,20 @@
             <input type="hidden" th:field="*{id}">
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
-                <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="제목을 입력해주세요.">
-                <div id="validationServer03Feedback" class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-                    Please provide a valid city.
-                </div>
+                <input type="text" class="form-control"
+                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:field="*{title}" placeholder="제목을 입력해주세요.">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                        제목 에러 메시지.
+                    </div>
 
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
-                <textarea class="form-control" id="content" rows="3" th:field="*{content}" placeholder="내용을 입력해주세요."></textarea>
+                <textarea class="form-control" id="content" rows="3" th:field="*{content}"
+                          th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" placeholder="내용을 입력해주세요."></textarea>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
+                    제목 에러 메시지.
+                </div>
             </div>
             <div class="text-right">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/board/list}"> 취소 </a>

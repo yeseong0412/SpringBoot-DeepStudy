@@ -1,6 +1,7 @@
 package com.start.myHome.controller;
 
 import com.start.myHome.model.Board;
+import com.start.myHome.validator.BoardValidator;
 import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import com.start.myHome.repository.BoardRepository;
@@ -16,6 +17,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private BoardValidator boardValidator;
     @GetMapping("/list")
     public String list(Model model){
         List<Board> boards= boardRepository.findAll();
@@ -34,6 +37,7 @@ public class BoardController {
     }
     @PostMapping("/form")
     public String greetingSubmit(@Valid Board board, BindingResult bindingResult) {
+        boardValidator.validate(board, bindingResult);
         if(bindingResult.hasErrors()){
             return "board/form";
         }
