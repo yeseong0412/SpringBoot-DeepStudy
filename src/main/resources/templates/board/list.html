@@ -101,7 +101,7 @@
         <div class="child">
             <h1 class="mt-5">게시판</h1>
         </div>
-        <div> 총 건수 : <span th:text="${#lists.size(boards)}"> </span></div>
+        <div> 총 건수 : <span th:text="${boards.totalElements}"> </span></div>
         <table class="table caption-top">
             <caption>List of users</caption>
             <thead>
@@ -119,6 +119,17 @@
                 </tr>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"  th:each="i "><a class="page-link" href="#">1</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
         <div class="text-right">
             <a type="button" class="btn btn-outline-primary" th:href="@{/board/form}" > 쓰기 </a>
         </div>

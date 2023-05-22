@@ -3,6 +3,9 @@ package com.start.myHome.controller;
 import com.start.myHome.model.Board;
 import com.start.myHome.validator.BoardValidator;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import com.start.myHome.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +23,11 @@ public class BoardController {
     @Autowired
     private BoardValidator boardValidator;
     @GetMapping("/list")
-    public String list(Model model){
-        List<Board> boards= boardRepository.findAll();
+    public String list(Model model,Pageable pageable){
+        Page<Board> boards= boardRepository.findAll(pageable);
+        int startPage = Math.max(0, boards.getPageable().getPageNumber() -4);
+        model.addAllAttributes("startPage", startPage);
+        model.addAllAttributes("startPage", endPage);
         model.addAttribute("boards" , boards);
         return "board/list";
     }
