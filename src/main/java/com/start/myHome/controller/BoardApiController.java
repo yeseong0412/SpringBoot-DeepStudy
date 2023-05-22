@@ -2,6 +2,7 @@ package com.start.myHome.controller;
 import com.start.myHome.model.Board;
 import com.start.myHome.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -23,9 +24,13 @@ class BoardApiController {
             return repository.findByTitleOrContent(title, content);
         }
     }
-
     @PostMapping("/boards")
     Board newBoard(@RequestBody Board newBoard) {
+        if (newBoard.getContent() == null) {
+            // 예외 처리: content 필드가 비어있는 경우
+            throw new IllegalArgumentException("Content field is required");
+        } // 예외처리를 추가하였지만 그 문제가 아니였다. post를 보낼때 title, contents 를 보냈지만 title, content를 보냈어야 했다.
+        //올바른 요청을 보내니 정상적으로 sql에 값이 들어왔다.
         return repository.save(newBoard);
     }
 
