@@ -20,7 +20,7 @@ class BoardApiController {
         if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
             return repository.findAll();
         } else {
-            return repository.findByTitle(title);
+            return repository.findByTitleOrContent(title, content);
         }
     }
 
@@ -52,8 +52,8 @@ class BoardApiController {
     }
 
 //    @Secured("ROLE_ADMIN")
-//    @DeleteMapping("/boards/{id}")
-//    void deleteBoard(@PathVariable Long id) {
-//        repository.deleteById(id);
-//    }
+    @DeleteMapping("/boards/{id}")
+    void deleteBoard(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
 }
