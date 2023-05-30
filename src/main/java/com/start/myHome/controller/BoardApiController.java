@@ -43,7 +43,6 @@ class BoardApiController {
 
     @PutMapping("/boards/{id}")
     Board replaceBoard(@RequestBody Board newBoard, @PathVariable Long id) {
-
         return repository.findById(id)
                 .map(board -> {
                     board.setTitle(newBoard.getTitle());
@@ -56,7 +55,7 @@ class BoardApiController {
                 });
     }
 
-//    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")  //일단 시큐리티 부분은 주석처리
     @DeleteMapping("/boards/{id}")
     void deleteBoard(@PathVariable Long id) {
         repository.deleteById(id);
